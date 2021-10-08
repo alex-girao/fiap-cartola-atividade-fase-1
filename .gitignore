@@ -131,3 +131,4 @@ dmypy.json
 # arquivos de instalacao
 data/hdfs/
 data/postgresql/
+data/hue/
