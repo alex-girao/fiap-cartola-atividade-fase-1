@@ -127,3 +127,7 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# arquivos de instalacao
+data/hdfs/
+data/postgresql/
