@@ -49,6 +49,11 @@ services:
       SERVICE_PRECONDITION: "hive-metastore:9083"
     ports:
       - "10000:10000"
+    volumes:
+      # - ./cartola-data-files:/opt/
+      - type: bind
+        source: ./cartola-data-files
+        target: /tmp
     depends_on:
       - hive-metastore
     deploy:
