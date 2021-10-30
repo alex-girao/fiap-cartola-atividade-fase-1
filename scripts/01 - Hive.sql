@@ -47,6 +47,7 @@ CREATE TABLE IF NOT EXISTS cartola.partida
 , score     STRING  COMMENT 'placar da partida'
 , away_team STRING  COMMENT 'time visitante e seu estado'
 , arena     STRING  COMMENT 'nome e localização do estádio'
+, x         STRING  COMMENT 'Sem Descrição'
 )
 PARTITIONED BY (ano INT)
 ROW FORMAT DELIMITED
