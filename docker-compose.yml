@@ -50,10 +50,7 @@ services:
     ports:
       - "10000:10000"
     volumes:
-      # - ./cartola-data-files:/opt/
-      - type: bind
-        source: ./cartola-data-files
-        target: /tmp
+      - ./cartola-data-files:/cartola-data-files
     depends_on:
       - hive-metastore
     deploy:
