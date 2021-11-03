@@ -290,7 +290,7 @@ CREATE TABLE IF NOT EXISTS cartola.tabela
  , DV     INT
  , CA     INT
  , CV     INT
- , %      INT
+ , PERC   INT
 )
 PARTITIONED BY (ano INT)
 ROW FORMAT DELIMITED
