@@ -269,3 +269,59 @@ WITH SERDEPROPERTIES (
 STORED AS TEXTFILE
 LOCATION 'hdfs://namenode:8020/user/Cartola/2014/2014_times'
 TBLPROPERTIES ('skip.header.line.count'='1');
+
+DROP TABLE IF EXISTS cartola.tabela;
+
+CREATE TABLE IF NOT EXISTS cartola.tabela
+(
+   Pos    STRING
+ , Clube  STRING
+ , P      INT
+ , J      INT
+ , V      INT
+ , E      INT
+ , D      INT
+ , GP     INT
+ , GC     INT
+ , SG     INT
+ , VM     INT
+ , VV     INT
+ , DM     INT
+ , DV     INT
+ , CA     INT
+ , CV     INT
+ , %      INT
+)
+PARTITIONED BY (ano INT)
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY ',';
+
+DROP TABLE IF EXISTS stage.tabela;
+
+CREATE EXTERNAL TABLE IF NOT EXISTS stage.tabela
+(
+   Pos    STRING
+ , Clube  STRING
+ , P      INT
+ , J      INT
+ , V      INT
+ , E      INT
+ , D      INT
+ , GP     INT
+ , GC     INT
+ , SG     INT
+ , VM     INT
+ , VV     INT
+ , DM     INT
+ , DV     INT
+ , CA     INT
+ , CV     INT
+ , PERC   INT
+)
+ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.OpenCSVSerde'
+WITH SERDEPROPERTIES (
+  "separatorChar" = ",",
+  "escapeChar"="\\")
+STORED AS TEXTFILE
+LOCATION 'hdfs://namenode:8020/user/Cartola/2017/2017_tabela'
+TBLPROPERTIES ('skip.header.line.count'='1');
