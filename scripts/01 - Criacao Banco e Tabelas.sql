@@ -325,3 +325,75 @@ WITH SERDEPROPERTIES (
 STORED AS TEXTFILE
 LOCATION 'hdfs://namenode:8020/user/Cartola/2017/2017_tabela'
 TBLPROPERTIES ('skip.header.line.count'='1');
+
+DROP TABLE IF EXISTS cartola.media_jogador;
+
+CREATE TABLE IF NOT EXISTS cartola.media_jogador
+(
+   player_slug                  STRING
+ , player_id                    BIGINT
+ , player_nickname              STRING
+ , player_team                  STRING
+ , player_position              STRING
+ , price_cartoletas             FLOAT
+ , score_mean                   FLOAT
+ , score_no_cleansheets_mean    FLOAT
+ , diff_home_away_s             FLOAT
+ , n_games                      FLOAT
+ , score_mean_home              FLOAT
+ , score_mean_away              FLOAT
+ , shots_x_mean                 FLOAT
+ , fouls_mean                   FLOAT
+ , DS_mean                      FLOAT
+ , PI_mean                      FLOAT
+ , A_mean                       FLOAT
+ , I_mean                       FLOAT
+ , FS_mean                      FLOAT
+ , FF_mean                      FLOAT
+ , G_mean                       FLOAT
+ , DD_mean                      FLOAT
+ , status                       STRING  
+ , price_diff                   FLOAT
+ , last_points                  FLOAT
+)
+PARTITIONED BY (ano INT)
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY ',';
+
+DROP TABLE IF EXISTS stage.media_jogador;
+
+CREATE TABLE IF NOT EXISTS stage.media_jogador
+(
+   player_slug                  STRING
+ , player_id                    BIGINT
+ , player_nickname              STRING
+ , player_team                  STRING
+ , player_position              STRING
+ , price_cartoletas             FLOAT
+ , score_mean                   FLOAT
+ , score_no_cleansheets_mean    FLOAT
+ , diff_home_away_s             FLOAT
+ , n_games                      FLOAT
+ , score_mean_home              FLOAT
+ , score_mean_away              FLOAT
+ , shots_x_mean                 FLOAT
+ , fouls_mean                   FLOAT
+ , DS_mean                      FLOAT
+ , PI_mean                      FLOAT
+ , A_mean                       FLOAT
+ , I_mean                       FLOAT
+ , FS_mean                      FLOAT
+ , FF_mean                      FLOAT
+ , G_mean                       FLOAT
+ , DD_mean                      FLOAT
+ , status                       STRING  
+ , price_diff                   FLOAT
+ , last_points                  FLOAT
+)
+ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.OpenCSVSerde'
+WITH SERDEPROPERTIES (
+  "separatorChar" = ",",
+  "escapeChar"="\\")
+STORED AS TEXTFILE
+LOCATION 'hdfs://namenode:8020/user/Cartola/2020/2020-medias-jogadores'
+TBLPROPERTIES ('skip.header.line.count'='1');
