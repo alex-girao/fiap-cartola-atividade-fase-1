@@ -1,3 +1,6 @@
+<b>cria-bd-tables.hql</b><br>
+Este será o primeiro script a ser executado, cria os bancos de dados (Stage, Cartola e DW) e as suas respectivas tabelas. <br>
+<br>
 <b>ins-table.hql</b> <br>
 Este script será utilizada para fazer a carga das tabelas Stage (origem) para as tabelas do Banco Cartola. <br>
 <br>
