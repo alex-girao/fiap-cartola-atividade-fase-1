@@ -39,15 +39,12 @@ DROP TABLE IF EXISTS cartola.partida;
 
 CREATE TABLE IF NOT EXISTS cartola.partida
 (
-  id        BIGINT  COMMENT 'Id no Arquivo' 
-, game      BIGINT  COMMENT 'ordem da partida'
-, round     BOOLEAN COMMENT 'rodada do brasileirão'
-, data      STRING  COMMENT 'data e hora da partida'
-, home_team STRING  COMMENT 'time mandante e seu estado'
-, score     STRING  COMMENT 'placar da partida'
-, away_team STRING  COMMENT 'time visitante e seu estado'
-, arena     STRING  COMMENT 'nome e localização do estádio'
-, x         STRING  COMMENT 'Sem Descrição'
+   data        STRING COMMENT 'data e hora da partida'
+ , home_team   INT    COMMENT 'time mandante e seu estado' 
+ , away_team   INT    COMMENT 'time visitante e seu estado' 
+ , home_score  INT    COMMENT 'Quantidade Gols Mandante'
+ , away_score  INT    COMMENT 'Quandidade Gols Visitante'
+ , round       INT    COMMENT 'rodada do brasileirão'
 )
 PARTITIONED BY (ano INT)
 ROW FORMAT DELIMITED
@@ -76,36 +73,36 @@ CREATE TABLE IF NOT EXISTS cartola.scouts_raw
   Atleta        BIGINT  COMMENT 'id do jogador'
 , Rodada        BIGINT  COMMENT 'número da rodada do Brasileirão'
 , Clube         BIGINT  COMMENT 'clube do jogador'
-, Participou    BOOLEAN COMMENT 'indica se o jogador participou ou não'
-, Posicao       BOOLEAN COMMENT 'posição do jogador'
+, Participou    INT     COMMENT 'indica se o jogador participou ou não'
+, Posicao       INT     COMMENT 'posição do jogador'
 , Jogos         BIGINT  COMMENT 'quantidade de jogos que o jogador participou até aquela rodada'
 , Pontos        DOUBLE  COMMENT 'pontuação do jogador'
 , PontosMedia   DOUBLE  COMMENT 'média da pontuação do jogador'
 , Preco         DOUBLE  COMMENT 'preço do jogador'
 , PrecoVariacao DOUBLE  COMMENT 'variação de preço'
 , Partida       BIGINT  COMMENT 'id da partida'
-, Mando         BOOLEAN COMMENT 'indica se o jogador era do time com mando de campo ou não'
-, Titular       BOOLEAN COMMENT 'indica se o jogador foi titular ou não'
-, Substituido   BOOLEAN COMMENT 'indica se o jogador foi substituído ou não'
-, TempoJogado   BOOLEAN COMMENT 'indica a fração de tempo (90 minutos) jogado pelo jogador'
+, Mando         INT     COMMENT 'indica se o jogador era do time com mando de campo ou não'
+, Titular       INT     COMMENT 'indica se o jogador foi titular ou não'
+, Substituido   INT     COMMENT 'indica se o jogador foi substituído ou não'
+, TempoJogado   INT     COMMENT 'indica a fração de tempo (90 minutos) jogado pelo jogador'
 , Nota          DOUBLE  COMMENT 'indica a nota do jogador pela crítica especializada'
 , FS            BIGINT  COMMENT 'faltas sofridas'
 , PE            BIGINT  COMMENT 'passes errados'
-, A             BOOLEAN COMMENT 'assistências'
-, FT            BOOLEAN COMMENT 'finalizações na trave'
-, FD            BOOLEAN COMMENT 'finalizações defendidas'
-, FF            BOOLEAN COMMENT 'finalizações para fora'
-, G             BOOLEAN COMMENT 'gols'
-, I             BOOLEAN COMMENT 'impedimentos'
-, PP            BOOLEAN COMMENT 'pênaltis perdidos'
-, RB            BOOLEAN COMMENT 'roubadas de bola'
-, FC            BOOLEAN COMMENT 'faltas cometidas'
-, GC            BOOLEAN COMMENT 'gols contra'
-, CA            BOOLEAN COMMENT 'cartões amarelo'
-, CV            BOOLEAN COMMENT 'cartões vermelho'
-, SG            BOOLEAN COMMENT 'jogos sem sofrer gols'
+, A             INT     COMMENT 'assistências'
+, FT            INT     COMMENT 'finalizações na trave'
+, FD            INT     COMMENT 'finalizações defendidas'
+, FF            INT     COMMENT 'finalizações para fora'
+, G             INT     COMMENT 'gols'
+, I             INT     COMMENT 'impedimentos'
+, PP            INT     COMMENT 'pênaltis perdidos'
+, RB            INT     COMMENT 'roubadas de bola'
+, FC            INT     COMMENT 'faltas cometidas'
+, GC            INT     COMMENT 'gols contra'
+, CA            INT     COMMENT 'cartões amarelo'
+, CV            INT     COMMENT 'cartões vermelho'
+, SG            INT     COMMENT 'jogos sem sofrer gols'
 , DD            BIGINT  COMMENT 'defesas difíceis'
-, DP            BOOLEAN COMMENT 'defesas de pênaltis'
+, DP            INT     COMMENT 'defesas de pênaltis'
 , GS            BIGINT  COMMENT 'gols sofridos'
 )
 PARTITIONED BY (ano INT)
@@ -167,15 +164,15 @@ DROP TABLE IF EXISTS stage.partida;
 
 CREATE EXTERNAL TABLE IF NOT EXISTS stage.partida
 (
-  id bigint,
-  game bigint,
-  round boolean,
-  data string,
-  home_team string,
-  score string,
-  away_team string,
-  arena string,
-  x string
+  id        BIGINT
+, game      BIGINT
+, round     INT
+, data      STRING
+, home_team STRING
+, score     STRING
+, away_team STRING
+, arena     STRING
+, x         STRING
 )
 ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.OpenCSVSerde'
 WITH SERDEPROPERTIES (
@@ -185,6 +182,47 @@ WITH SERDEPROPERTIES (
 STORED AS TEXTFILE
 LOCATION 'hdfs://namenode:8020/user/Cartola/2014/2014_partidas'
 TBLPROPERTIES ('skip.header.line.count'='1');
+
+DROP TABLE IF EXISTS stage.partida2;
+
+CREATE EXTERNAL TABLE IF NOT EXISTS stage.partida2
+(
+  game      BIGINT
+, round     INT
+, data      STRING
+, home_team STRING
+, score     STRING
+, away_team STRING
+, arena     STRING
+, x         STRING
+)
+ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.OpenCSVSerde'
+WITH SERDEPROPERTIES (
+  "separatorChar" = ",",
+  "escapeChar"="\\")
+STORED AS TEXTFILE
+LOCATION 'hdfs://namenode:8020/user/Cartola/2018/2018_partidas'
+TBLPROPERTIES ('skip.header.line.count'='1');
+
+DROP TABLE IF EXISTS stage.partida3;
+
+CREATE EXTERNAL TABLE IF NOT EXISTS stage.partida3
+(
+   data        STRING
+ , home_team   INT
+ , away_team   INT
+ , home_score  INT 
+ , away_score  INT
+ , round       INT
+)
+ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.OpenCSVSerde'
+WITH SERDEPROPERTIES (
+  "separatorChar" = ",",
+  "escapeChar"="\\")
+STORED AS TEXTFILE
+LOCATION 'hdfs://namenode:8020/user/Cartola/2020/2020_partidas'
+TBLPROPERTIES ('skip.header.line.count'='1');
+
 
 DROP TABLE IF EXISTS stage.partida_id;
 
@@ -213,36 +251,36 @@ CREATE EXTERNAL TABLE IF NOT EXISTS stage.scouts_raw
   Atleta        BIGINT  COMMENT 'id do jogador'
 , Rodada        BIGINT  COMMENT 'número da rodada do Brasileirão'
 , Clube         BIGINT  COMMENT 'clube do jogador'
-, Participou    BOOLEAN COMMENT 'indica se o jogador participou ou não'
-, Posicao       BOOLEAN COMMENT 'posição do jogador'
+, Participou    INT     COMMENT 'indica se o jogador participou ou não'
+, Posicao       INT     COMMENT 'posição do jogador'
 , Jogos         BIGINT  COMMENT 'quantidade de jogos que o jogador participou até aquela rodada'
 , Pontos        DOUBLE  COMMENT 'pontuação do jogador'
 , PontosMedia   DOUBLE  COMMENT 'média da pontuação do jogador'
 , Preco         DOUBLE  COMMENT 'preço do jogador'
 , PrecoVariacao DOUBLE  COMMENT 'variação de preço'
 , Partida       BIGINT  COMMENT 'id da partida'
-, Mando         BOOLEAN COMMENT 'indica se o jogador era do time com mando de campo ou não'
-, Titular       BOOLEAN COMMENT 'indica se o jogador foi titular ou não'
-, Substituido   BOOLEAN COMMENT 'indica se o jogador foi substituído ou não'
-, TempoJogado   BOOLEAN COMMENT 'indica a fração de tempo (90 minutos) jogado pelo jogador'
+, Mando         INT     COMMENT 'indica se o jogador era do time com mando de campo ou não'
+, Titular       INT     COMMENT 'indica se o jogador foi titular ou não'
+, Substituido   INT     COMMENT 'indica se o jogador foi substituído ou não'
+, TempoJogado   INT     COMMENT 'indica a fração de tempo (90 minutos) jogado pelo jogador'
 , Nota          DOUBLE  COMMENT 'indica a nota do jogador pela crítica especializada'
 , FS            BIGINT  COMMENT 'faltas sofridas'
 , PE            BIGINT  COMMENT 'passes errados'
-, A             BOOLEAN COMMENT 'assistências'
-, FT            BOOLEAN COMMENT 'finalizações na trave'
-, FD            BOOLEAN COMMENT 'finalizações defendidas'
-, FF            BOOLEAN COMMENT 'finalizações para fora'
-, G             BOOLEAN COMMENT 'gols'
-, I             BOOLEAN COMMENT 'impedimentos'
-, PP            BOOLEAN COMMENT 'pênaltis perdidos'
-, RB            BOOLEAN COMMENT 'roubadas de bola'
-, FC            BOOLEAN COMMENT 'faltas cometidas'
-, GC            BOOLEAN COMMENT 'gols contra'
-, CA            BOOLEAN COMMENT 'cartões amarelo'
-, CV            BOOLEAN COMMENT 'cartões vermelho'
-, SG            BOOLEAN COMMENT 'jogos sem sofrer gols'
+, A             INT     COMMENT 'assistências'
+, FT            INT     COMMENT 'finalizações na trave'
+, FD            INT     COMMENT 'finalizações defendidas'
+, FF            INT     COMMENT 'finalizações para fora'
+, G             INT     COMMENT 'gols'
+, I             INT     COMMENT 'impedimentos'
+, PP            INT     COMMENT 'pênaltis perdidos'
+, RB            INT     COMMENT 'roubadas de bola'
+, FC            INT     COMMENT 'faltas cometidas'
+, GC            INT     COMMENT 'gols contra'
+, CA            INT     COMMENT 'cartões amarelo'
+, CV            INT     COMMENT 'cartões vermelho'
+, SG            INT     COMMENT 'jogos sem sofrer gols'
 , DD            BIGINT  COMMENT 'defesas difíceis'
-, DP            BOOLEAN COMMENT 'defesas de pênaltis'
+, DP            INT     COMMENT 'defesas de pênaltis'
 , GS            BIGINT  COMMENT 'gols sofridos'
 )
 ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.OpenCSVSerde'
@@ -268,6 +306,23 @@ WITH SERDEPROPERTIES (
   "escapeChar"="\\")
 STORED AS TEXTFILE
 LOCATION 'hdfs://namenode:8020/user/Cartola/2014/2014_times'
+TBLPROPERTIES ('skip.header.line.count'='1');
+
+DROP TABLE IF EXISTS stage.equipe2;
+
+CREATE EXTERNAL TABLE IF NOT EXISTS stage.equipe2
+(
+   ID         BIGINT COMMENT 'id do time'  
+ , Nome       STRING COMMENT 'nome do time' 
+ , Abreviacao STRING COMMENT 'abreviação'   
+ , Slug       STRING COMMENT 'nome do time '
+)
+ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.OpenCSVSerde'
+WITH SERDEPROPERTIES (
+  "separatorChar" = ";",
+  "escapeChar"="\\")
+STORED AS TEXTFILE
+LOCATION 'hdfs://namenode:8020/user/Cartola/2017/2017_times'
 TBLPROPERTIES ('skip.header.line.count'='1');
 
 DROP TABLE IF EXISTS cartola.tabela;
@@ -396,4 +451,48 @@ WITH SERDEPROPERTIES (
   "escapeChar"="\\")
 STORED AS TEXTFILE
 LOCATION 'hdfs://namenode:8020/user/Cartola/2020/2020-medias-jogadores'
+TBLPROPERTIES ('skip.header.line.count'='1');
+
+
+DROP TABLE IF EXISTS cartola.equipe_depara;
+
+CREATE TABLE IF NOT EXISTS cartola.equipe_depara
+(
+   nome_cbf      STRING COMMENT 'nome do time no site da CBF'
+ , nome_cartola  STRING COMMENT 'nome do time no Cartola FC'
+ , nome_completo STRING COMMENT 'nome do time completo'
+ , cod_older     INT    COMMENT 'código do time no Cartola FC até 2017'
+ , cod_2017      INT    COMMENT 'código do time no Cartola FC a partir de 2017'
+ , cod_2018      INT    COMMENT 'código do time no Cartola FC a partir de 2018'
+ , id            INT    COMMENT 'id do time'
+ , abreviacao    STRING COMMENT 'Abreviatura do nome' 
+ , escudos_60x60 STRING COMMENT 'Link Escudo 60x60'
+ , escudos_45x45 STRING COMMENT 'Link Escudo 45x45'
+ , escudos_30x30 STRING COMMENT 'Link Escudo 30x30'
+)
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY ',';
+
+DROP TABLE IF EXISTS stage.equipe_depara;
+
+CREATE TABLE IF NOT EXISTS stage.equipe_depara
+(
+   nome_cbf      STRING COMMENT 'nome do time no site da CBF'
+ , nome_cartola  STRING COMMENT 'nome do time no Cartola FC'
+ , nome_completo STRING COMMENT 'nome do time completo'
+ , cod_older     INT    COMMENT 'código do time no Cartola FC até 2017'
+ , cod_2017      INT    COMMENT 'código do time no Cartola FC a partir de 2017'
+ , cod_2018      INT    COMMENT 'código do time no Cartola FC a partir de 2018'
+ , id            INT    COMMENT 'id do time'
+ , abreviacao    STRING COMMENT 'Abreviatura do nome' 
+ , escudos_60x60 STRING COMMENT 'Link Escudo 60x60'
+ , escudos_45x45 STRING COMMENT 'Link Escudo 45x45'
+ , escudos_30x30 STRING COMMENT 'Link Escudo 30x30'
+)
+ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.OpenCSVSerde'
+WITH SERDEPROPERTIES (
+  "separatorChar" = ",",
+  "escapeChar"="\\")
+STORED AS TEXTFILE
+LOCATION 'hdfs://namenode:8020/user/Cartola/times_ids'
 TBLPROPERTIES ('skip.header.line.count'='1');
