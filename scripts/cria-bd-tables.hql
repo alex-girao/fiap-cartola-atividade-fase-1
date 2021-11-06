@@ -6,6 +6,11 @@ DROP DATABASE IF EXISTS cartola CASCADE;
 
 CREATE DATABASE IF NOT EXISTS cartola;
 
+DROP DATABASE IF EXISTS dw CASCADE;
+
+CREATE DATABASE IF NOT EXISTS dw;
+
+
 DROP TABLE IF EXISTS cartola.jogador;
 
 CREATE TABLE IF NOT EXISTS cartola.jogador
@@ -496,3 +501,33 @@ WITH SERDEPROPERTIES (
 STORED AS TEXTFILE
 LOCATION 'hdfs://namenode:8020/user/Cartola/times_ids'
 TBLPROPERTIES ('skip.header.line.count'='1');
+
+DROP TABLE IF EXISTS dw.dim_equipe;
+
+CREATE TABLE IF NOT EXISTS dw.dim_equipe
+(
+  id         INT    COMMENT 'id da Equipe'
+, nome       STRING COMMENT 'nome da Equipe'
+, abreviacao STRING COMMENT 'Abreviação do nome da Equipe'
+, slug       STRING COMMENT 'Nome da Equipe + Estado'
+, dtinclusao DATE   COMMENT 'Data da Inclusão'
+)
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY ',';
+
+DROP TABLE IF EXISTS dw.fact_partida;
+
+CREATE TABLE IF NOT EXISTS dw.fact_partida
+(
+   data        STRING COMMENT 'data e hora da partida'
+ , home_team   INT    COMMENT 'time mandante e seu estado' 
+ , away_team   INT    COMMENT 'time visitante e seu estado' 
+ , home_score  INT    COMMENT 'Quantidade Gols Mandante'
+ , away_score  INT    COMMENT 'Quandidade Gols Visitante'
+ , round       INT    COMMENT 'rodada do brasileirão'
+ , resultado   STRING COMMENT 'Resultado da Partida'
+ , dtinclusao  DATE   COMMENT 'Data da Inclusão'
+)
+PARTITIONED BY (ano INT)
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY ',';
