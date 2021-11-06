@@ -22,10 +22,9 @@ SELECT data
      , NVL(away_score, 0) AS away_score
      , round
      , CASE WHEN NVL(home_score, 0) = NVL(away_score, 0) THEN 'Empate'
-            WHEN NVL(home_score, 0) > NVL(away_score, 0) THEN 'Vitória Mandante'
-            WHEN NVL(home_score, 0) < NVL(away_score, 0) THEN 'Vitória Visitante'
+            WHEN NVL(home_score, 0) > NVL(away_score, 0) THEN 'Vitoria Mandante'
+            WHEN NVL(home_score, 0) < NVL(away_score, 0) THEN 'Vitoria Visitante'
        END             AS resultado        
      , CURRENT_DATE()  AS dtinclusao      
      , ano        
   FROM cartola.partida;
-
