@@ -1,3 +1,10 @@
+#Cria banco de dados e tabelas
+hive -f cria-bd-tables.hql
+
+#Leva os dados para o HDFS
+hdfs dfs -put -f /cartola-data-files/* /user/Cartola
+
+#executa a carga dos dados para as tabelas.
 hive --hiveconf local='hdfs://namenode:8020/user/Cartola/times_ids' --hiveconf tabela=equipe_depara -f ins-table-no-partition.hql
 
 hive --hiveconf local='hdfs://namenode:8020/user/Cartola/2014/2014_partidas' --hiveconf tabela=partida --hiveconf ano=2014 --hiveconf versao= -f ins-table-partida.hql
@@ -46,3 +53,6 @@ hive --hiveconf local='hdfs://namenode:8020/user/Cartola/2020/2020-medias-jogado
 #hive --hiveconf local='hdfs://namenode:8020/user/Cartola/2020/team-features'
 #hive --hiveconf local='hdfs://namenode:8020/user/Cartola/2020/team-rankings'
 #hive --hiveconf local='hdfs://namenode:8020/user/Cartola/desafio_valorizacao'
+
+#insere os dados nas tabelas do banco DW.
+hive -f insert-dw.hql
