@@ -141,3 +141,16 @@ services:
       resources:
         limits:
           memory: 500m
+
+  presto-coordinator:
+    image: fjardim/prestodb
+    container_name: presto
+    hostname: presto
+    ports:
+      - "8080:8080"
+    depends_on:
+      - hive-server  
+    deploy:
+      resources:
+        limits:
+          memory: 500m
