@@ -125,3 +125,18 @@ services:
         MYSQL_DATABASE: hue
         MYSQL_USER: root
         MYSQL_PASSWORD: secret
+  
+  metabase:
+    image: fjardim/metabase
+    container_name: metabase
+    hostname: metabase
+    volumes:
+      - ./data/metabase/data:/metabase-data
+    environment:
+      MB_DB_FILE: "/metabase-data/metabase.db"
+    ports:
+      - 3000:3000
+    deploy:
+      resources:
+        limits:
+          memory: 500m
