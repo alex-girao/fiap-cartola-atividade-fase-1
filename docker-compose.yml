@@ -39,7 +39,10 @@ services:
           memory: 500m
   
   hive-server:
-    image: fjardim/hive
+    build:
+      dockerfile: HiveServerCustom.dockerfile
+      context: .
+    image: hive_server_custom
     container_name: hive-server
     hostname: hive_server
     env_file:
@@ -49,9 +52,9 @@ services:
       SERVICE_PRECONDITION: "hive-metastore:9083"
     ports:
       - "10000:10000"
-    volumes:
-      - ./cartola-data-files:/cartola-data-files
-      - ./scripts:/scripts-ingestao
+    #volumes:
+      #- ./cartola-data-files:/cartola-data-files
+      #- ./scripts:/scripts-ingestao
     depends_on:
       - hive-metastore
     deploy:
@@ -126,31 +129,3 @@ services:
         MYSQL_DATABASE: hue
         MYSQL_USER: root
         MYSQL_PASSWORD: secret
-  
-  metabase:
-    image: fjardim/metabase
-    container_name: metabase
-    hostname: metabase
-    volumes:
-      - ./data/metabase/data:/metabase-data
-    environment:
-      MB_DB_FILE: "/metabase-data/metabase.db"
-    ports:
-      - 3000:3000
-    deploy:
-      resources:
-        limits:
-          memory: 500m
-
-  presto-coordinator:
-    image: fjardim/prestodb
-    container_name: presto
-    hostname: presto
-    ports:
-      - "8080:8080"
-    depends_on:
-      - hive-server  
-    deploy:
-      resources:
-        limits:
-          memory: 500m
