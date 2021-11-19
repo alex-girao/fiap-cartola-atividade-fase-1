@@ -53,8 +53,7 @@ services:
     ports:
       - "10000:10000"
     depends_on:
-      - hive-metastore:
-          condition: service_healthy
+      - hive-metastore
     deploy:
       resources:
         limits:
