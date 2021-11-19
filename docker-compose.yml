@@ -1,4 +1,4 @@
-version: '3' 
+version: '3'
 services:
 
   namenode:
@@ -17,7 +17,7 @@ services:
       resources:
         limits:
           memory: 500m
-  
+
   datanode:
     image: fjardim/datanode
     container_name: datanode
@@ -37,7 +37,7 @@ services:
       resources:
         limits:
           memory: 500m
-  
+
   hive-server:
     build:
       dockerfile: HiveServerCustom.dockerfile
@@ -52,16 +52,14 @@ services:
       SERVICE_PRECONDITION: "hive-metastore:9083"
     ports:
       - "10000:10000"
-    #volumes:
-      #- ./cartola-data-files:/cartola-data-files
-      #- ./scripts:/scripts-ingestao
     depends_on:
-      - hive-metastore
+      - hive-metastore:
+          condition: service_healthy
     deploy:
       resources:
         limits:
           memory: 500m
-  
+
   hive-metastore:
     image: fjardim/hive
     container_name: hive_metastore
@@ -79,7 +77,7 @@ services:
       resources:
         limits:
           memory: 500m
-  
+
   hive-metastore-postgresql:
     image: fjardim/hive-metastore
     container_name: hive-metastore-postgresql
@@ -92,14 +90,14 @@ services:
       resources:
         limits:
           memory: 500m
-  
+
   hue:
     image: fjardim/hue
     hostname: hue
     container_name: hue
     dns: 8.8.8.8
     ports:
-    - "8888:8888"
+      - "8888:8888"
     volumes:
       - ./data/hue/hue-overrides.ini:/usr/share/hue/desktop/conf/z-hue.ini
     depends_on:
@@ -108,28 +106,29 @@ services:
       resources:
         limits:
           memory: 500m
-  
+
   database:
     image: fjardim/mysql
     container_name: database
     hostname: database
     ports:
-        - "33061:3306"
+      - "33061:3306"
     deploy:
       resources:
         limits:
           memory: 500m
-    command: mysqld --innodb-flush-method=O_DSYNC --innodb-use-native-aio=OFF --init-file /data/application/init.sql
+    command: mysqld --innodb-flush-method=O_DSYNC --innodb-use-native-aio=OFF
+      --init-file /data/application/init.sql
     volumes:
-        - ./data/mysql/data:/var/lib/mysql
-        - ./data/mysql/init.sql:/data/application/init.sql
+      - ./data/mysql/data:/var/lib/mysql
+      - ./data/mysql/init.sql:/data/application/init.sql
     environment:
-        MYSQL_ROOT_USER: root
-        MYSQL_ROOT_PASSWORD: secret
-        MYSQL_DATABASE: hue
-        MYSQL_USER: root
-        MYSQL_PASSWORD: secret
-  
+      MYSQL_ROOT_USER: root
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: hue
+      MYSQL_USER: root
+      MYSQL_PASSWORD: secret
+
   metabase:
     image: fjardim/metabase
     container_name: metabase
@@ -144,7 +143,7 @@ services:
       resources:
         limits:
           memory: 500m
-  
+
   presto-coordinator:
     image: fjardim/prestodb
     container_name: presto
@@ -152,7 +151,7 @@ services:
     ports:
       - "8080:8080"
     depends_on:
-      - hive-server  
+      - hive-server
     deploy:
       resources:
         limits:
@@ -160,4 +159,4 @@ services:
 
 volumes:
   pgdata:
-   driver: local
+    driver: local
