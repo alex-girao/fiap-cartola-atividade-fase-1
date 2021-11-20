@@ -17,8 +17,8 @@ CREATE TABLE IF NOT EXISTS cartola.jogador
 (
   id        INT    COMMENT 'id do jogador'
 , apelido   STRING COMMENT 'nome/apelido do jogador'
-, clubeid   INT    COMMENT 'id do clube do jogador'
-, posicaoid INT    COMMENT 'posição do jogador'
+, clubeid   STRING COMMENT 'id do clube do jogador'
+, posicaoid STRING COMMENT 'posição do jogador'
 )
 PARTITIONED BY (ano INT)
 ROW FORMAT DELIMITED
