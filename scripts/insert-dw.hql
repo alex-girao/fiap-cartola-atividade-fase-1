@@ -16,7 +16,7 @@ SELECT -1 id
      , 'Não Identificado' AS nome
      , 'Não Identificado' AS abreviacao
      , 'Não Identificado' AS slug
-     , CURRENT_DATE()
+     , CURRENT_DATE();
 
 TRUNCATE TABLE dw.fact_partida;
  
