@@ -13,9 +13,9 @@ SELECT DISTINCT
   FROM cartola.equipe
  UNION ALL 
 SELECT -1 id
-     , 'Não Identificado' AS nome
-     , 'Não Identificado' AS abreviacao
-     , 'Não Identificado' AS slug
+     , 'Nao Identificado' AS nome
+     , 'Nao Identificado' AS abreviacao
+     , 'Nao Identificado' AS slug
      , CURRENT_DATE();
 
 TRUNCATE TABLE dw.fact_partida;
@@ -73,8 +73,8 @@ WITH qry AS (SELECT jogador.id
            FROM cartola.media_jogador
          UNION ALL    
         SELECT -1 id
-             , 'Não Identificado' apelido
-             , 'Não Identificado' posicaoid
+             , 'Nao Identificado' apelido
+             , 'Nao Identificado' posicaoid
              , 2020 ano)
 INSERT INTO dw.dim_jogador
 SELECT DISTINCT 
