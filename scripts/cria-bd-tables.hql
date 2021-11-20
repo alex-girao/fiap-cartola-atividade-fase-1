@@ -314,6 +314,131 @@ STORED AS TEXTFILE
 LOCATION 'hdfs://namenode:8020/user/Cartola/2014/2014_scouts_raw'
 TBLPROPERTIES ('skip.header.line.count'='1');
 
+DROP TABLE IF EXISTS stage.scouts_raw2015;
+
+CREATE EXTERNAL TABLE IF NOT EXISTS stage.scouts_raw2015
+(
+  Rodada        BIGINT  COMMENT 'número da rodada do Brasileirão'
+, Clube         BIGINT  COMMENT 'clube do jogador'
+, Atleta        BIGINT  COMMENT 'id do jogador'
+, Jogos         BIGINT  COMMENT 'quantidade de jogos que o jogador participou até aquela rodada'
+, Pontos        DOUBLE  COMMENT 'pontuação do jogador'
+, PontosMedia   DOUBLE  COMMENT 'média da pontuação do jogador'
+, Preco         DOUBLE  COMMENT 'preço do jogador'
+, PrecoVariacao DOUBLE  COMMENT 'variação de preço'
+, FS            BIGINT  COMMENT 'faltas sofridas'
+, PE            BIGINT  COMMENT 'passes errados'
+, A             INT     COMMENT 'assistências'
+, FT            INT     COMMENT 'finalizações na trave'
+, FD            INT     COMMENT 'finalizações defendidas'
+, FF            INT     COMMENT 'finalizações para fora'
+, G             INT     COMMENT 'gols'
+, I             INT     COMMENT 'impedimentos'
+, PP            INT     COMMENT 'pênaltis perdidos'
+, RB            INT     COMMENT 'roubadas de bola'
+, FC            INT     COMMENT 'faltas cometidas'
+, GC            INT     COMMENT 'gols contra'
+, CA            INT     COMMENT 'cartões amarelo'
+, CV            INT     COMMENT 'cartões vermelho'
+, SG            INT     COMMENT 'jogos sem sofrer gols'
+, DD            BIGINT  COMMENT 'defesas difíceis'
+, DP            INT     COMMENT 'defesas de pênaltis'
+, GS            BIGINT  COMMENT 'gols sofridos'
+)
+ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.OpenCSVSerde'
+WITH SERDEPROPERTIES (
+  "separatorChar" = ",",
+  "escapeChar"="\\")
+STORED AS TEXTFILE
+LOCATION 'hdfs://namenode:8020/user/Cartola/2015/2015_scouts_raw'
+TBLPROPERTIES ('skip.header.line.count'='1');
+
+DROP TABLE IF EXISTS stage.scouts_raw2016;
+
+CREATE EXTERNAL TABLE IF NOT EXISTS stage.scouts_raw2016
+(
+  Rodada        BIGINT  COMMENT 'número da rodada do Brasileirão'
+, Clube         BIGINT  COMMENT 'clube do jogador'
+, Atleta        BIGINT  COMMENT 'id do jogador'
+, participou    BOOLEAN COMMENT 'Flag Participou'
+, Pontos        DOUBLE  COMMENT 'pontuação do jogador'
+, PontosMedia   DOUBLE  COMMENT 'média da pontuação do jogador'
+, Preco         DOUBLE  COMMENT 'preço do jogador'
+, PrecoVariacao DOUBLE  COMMENT 'variação de preço'
+, FS            BIGINT  COMMENT 'faltas sofridas'
+, PE            BIGINT  COMMENT 'passes errados'
+, A             INT     COMMENT 'assistências'
+, FT            INT     COMMENT 'finalizações na trave'
+, FD            INT     COMMENT 'finalizações defendidas'
+, FF            INT     COMMENT 'finalizações para fora'
+, G             INT     COMMENT 'gols'
+, I             INT     COMMENT 'impedimentos'
+, PP            INT     COMMENT 'pênaltis perdidos'
+, RB            INT     COMMENT 'roubadas de bola'
+, FC            INT     COMMENT 'faltas cometidas'
+, GC            INT     COMMENT 'gols contra'
+, CA            INT     COMMENT 'cartões amarelo'
+, CV            INT     COMMENT 'cartões vermelho'
+, SG            INT     COMMENT 'jogos sem sofrer gols'
+, DD            BIGINT  COMMENT 'defesas difíceis'
+, DP            INT     COMMENT 'defesas de pênaltis'
+, GS            BIGINT  COMMENT 'gols sofridos'
+)
+ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.OpenCSVSerde'
+WITH SERDEPROPERTIES (
+  "separatorChar" = ",",
+  "escapeChar"="\\")
+STORED AS TEXTFILE
+LOCATION 'hdfs://namenode:8020/user/Cartola/2016/2016_scouts_raw'
+TBLPROPERTIES ('skip.header.line.count'='1');
+
+DROP TABLE IF EXISTS stage.scouts_raw2017;
+
+CREATE EXTERNAL TABLE IF NOT EXISTS stage.scouts_raw2017
+(
+  id            INT     COMMENT 'Id Sequencial'
+, A             INT     COMMENT 'assistências'
+, CA            INT     COMMENT 'cartões amarelo'
+, CV            INT     COMMENT 'cartões vermelho'
+, DD            BIGINT  COMMENT 'defesas difíceis'
+, DP            INT     COMMENT 'defesas de pênaltis'
+, FC            INT     COMMENT 'faltas cometidas'
+, FD            INT     COMMENT 'finalizações defendidas'
+, FF            INT     COMMENT 'finalizações para fora'
+, FS            BIGINT  COMMENT 'faltas sofridas'
+, FT            INT     COMMENT 'finalizações na trave'
+, G             INT     COMMENT 'gols'
+, GC            INT     COMMENT 'gols contra'
+, GS            BIGINT  COMMENT 'gols sofridos'
+, I             INT     COMMENT 'impedimentos'
+, PE            BIGINT  COMMENT 'passes errados'
+, PP            INT     COMMENT 'pênaltis perdidos'
+, RB            INT     COMMENT 'roubadas de bola'
+, SG            INT     COMMENT 'jogos sem sofrer gols'
+, scout         INT     COMMENT 'Scout'
+, apelido       STRING  COMMENT 'Apelido do Jogador'
+, Atleta        BIGINT  COMMENT 'id do jogador'
+, NomeClube     STRING  COMMENT 'Nome do Clube'
+, Clube         BIGINT  COMMENT 'clube do jogador'
+, foto          STRING  COMMENT 'Link da Foto do Jogador'
+, Jogos         BIGINT  COMMENT 'quantidade de jogos que o jogador participou até aquela rodada'
+, PontosMedia   DOUBLE  COMMENT 'média da pontuação do jogador'
+, NomeAtleta    STRING  COMMENT 'Nome Atleta'
+, Pontos        DOUBLE  COMMENT 'pontuação do jogador'
+, posicao_id    STRING  COMMENT 'Posição do Jogador'
+, Preco         DOUBLE  COMMENT 'preço do jogador'
+, Rodada        BIGINT  COMMENT 'número da rodada do Brasileirão'
+, status_id     STRING  COMMENT 'Status do Atleta'
+, PrecoVariacao DOUBLE  COMMENT 'variação de preço'
+)
+ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.OpenCSVSerde'
+WITH SERDEPROPERTIES (
+  "separatorChar" = ",",
+  "escapeChar"="\\")
+STORED AS TEXTFILE
+LOCATION 'hdfs://namenode:8020/user/Cartola/2017/2017_scouts_raw'
+TBLPROPERTIES ('skip.header.line.count'='1');
+
 DROP TABLE IF EXISTS stage.equipe;
 
 CREATE EXTERNAL TABLE IF NOT EXISTS stage.equipe
@@ -545,6 +670,31 @@ CREATE TABLE IF NOT EXISTS dw.fact_partida
  , round       INT    COMMENT 'rodada do brasileirão'
  , resultado   STRING COMMENT 'Resultado da Partida'
  , dtinclusao  DATE   COMMENT 'Data da Inclusão'
+)
+PARTITIONED BY (ano INT)
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY ',';
+
+DROP TABLE IF EXISTS dw.dim_jogador;
+
+CREATE TABLE IF NOT EXISTS dw.dim_jogador
+(
+  id        INT    COMMENT 'id do jogador'
+, apelido   STRING COMMENT 'nome/apelido do jogador'
+, posicaoid STRING COMMENT 'posição do jogador'
+, dtinclusao DATE  COMMENT 'Data da Inclusão'
+)
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY ',';
+
+DROP TABLE IF EXISTS dw.fact_scouts_raw;
+
+CREATE TABLE IF NOT EXISTS dw.fact_scouts_raw
+(
+  Atletaid    INT    COMMENT 'id do jogador'
+, pontosmedia DOUBLE COMMENT 'Média Pontos'
+, equipeid    INT    COMMENT 'Id da Equipe'
+, dtinclusao DATE  COMMENT 'Data da Inclusão'
 )
 PARTITIONED BY (ano INT)
 ROW FORMAT DELIMITED
