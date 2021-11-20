@@ -34,7 +34,7 @@ hive --hiveconf local='hdfs://namenode:8020/user/Cartola/2017/2017_tabela' --hiv
 #hive --hiveconf local='hdfs://namenode:8020/user/Cartola/2017/2017_dados_agregados'
 
 hive --hiveconf local='hdfs://namenode:8020/user/Cartola/2018/2018_partidas' --hiveconf tabela=partida --hiveconf ano=2018 --hiveconf versao=2 -f ins-table-partida.hql
-hive --hiveconf local='hdfs://namenode:8020/user/Cartola/2018/2018_jogadores' --hiveconf tabela=jogador --hiveconf ano=2018 --hiveconf versao= -f ins-table.hql
+hive --hiveconf local='hdfs://namenode:8020/user/Cartola/2018/2018_jogadores' --hiveconf tabela=jogador --hiveconf ano=2018 --hiveconf versao=2 -f ins-table.hql
 hive --hiveconf local='hdfs://namenode:8020/user/Cartola/2018/2018_tabelas' --hiveconf tabela=tabela --hiveconf ano=2018 --hiveconf versao= -f ins-table.hql
 #hive --hiveconf local='hdfs://namenode:8020/user/Cartola/2018/2018_agregados'
 #hive --hiveconf local='hdfs://namenode:8020/user/Cartola/2018/2018-rodada'
