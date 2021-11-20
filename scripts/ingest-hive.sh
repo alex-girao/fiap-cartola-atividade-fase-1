@@ -16,19 +16,19 @@ hive --hiveconf local='hdfs://namenode:8020/user/Cartola/2014/2014_times' --hive
 
 hive --hiveconf local='hdfs://namenode:8020/user/Cartola/2015/2015_partidas' --hiveconf tabela=partida --hiveconf ano=2015 --hiveconf versao= -f ins-table-partida.hql
 hive --hiveconf local='hdfs://namenode:8020/user/Cartola/2015/2015_jogadores' --hiveconf tabela=jogador --hiveconf ano=2015 --hiveconf versao= -f ins-table.hql
-hive --hiveconf local='hdfs://namenode:8020/user/Cartola/2015/2015_scouts_raw' --hiveconf tabela=scouts_raw --hiveconf ano=2015 --hiveconf versao= -f ins-table.hql
+hive --hiveconf local='hdfs://namenode:8020/user/Cartola/2015/2015_scouts_raw' --hiveconf tabela=scouts_raw --hiveconf ano=2015 --hiveconf versao=2015 -f ins-table-scouts-2015.hql
 hive --hiveconf local='hdfs://namenode:8020/user/Cartola/2015/2015_partidas_ids' --hiveconf tabela=partida_id --hiveconf ano=2015 --hiveconf versao= -f ins-table.hql
 hive --hiveconf local='hdfs://namenode:8020/user/Cartola/2015/2015_times' --hiveconf tabela=equipe --hiveconf ano=2015 --hiveconf versao= -f ins-table.hql
 
 hive --hiveconf local='hdfs://namenode:8020/user/Cartola/2016/2016_partidas' --hiveconf tabela=partida --hiveconf ano=2016 --hiveconf versao= -f ins-table-partida.hql
 hive --hiveconf local='hdfs://namenode:8020/user/Cartola/2016/2016_jogadores' --hiveconf tabela=jogador --hiveconf ano=2016 --hiveconf versao= -f ins-table.hql
-hive --hiveconf local='hdfs://namenode:8020/user/Cartola/2016/2016_scouts_raw' --hiveconf tabela=scouts_raw --hiveconf ano=2016 --hiveconf versao= -f ins-table.hql
+hive --hiveconf local='hdfs://namenode:8020/user/Cartola/2016/2016_scouts_raw' --hiveconf tabela=scouts_raw --hiveconf ano=2016 --hiveconf versao=2016 -f ins-table-scouts-2016.hql
 hive --hiveconf local='hdfs://namenode:8020/user/Cartola/2016/2016_partidas_ids' --hiveconf tabela=partida_id --hiveconf ano=2016 --hiveconf versao= -f ins-table.hql
 hive --hiveconf local='hdfs://namenode:8020/user/Cartola/2016/2016_times' --hiveconf tabela=equipe --hiveconf ano=2016 --hiveconf versao= -f ins-table.hql
 
 hive --hiveconf local='hdfs://namenode:8020/user/Cartola/2017/2017_partidas' --hiveconf tabela=partida --hiveconf ano=2017 --hiveconf versao= -f ins-table-partida.hql
 hive --hiveconf local='hdfs://namenode:8020/user/Cartola/2017/2017_jogadores' --hiveconf tabela=jogador --hiveconf ano=2017 --hiveconf versao= -f ins-table.hql
-hive --hiveconf local='hdfs://namenode:8020/user/Cartola/2017/2017_scouts_raw' --hiveconf tabela=scouts_raw --hiveconf ano=2017 --hiveconf versao= -f ins-table.hql
+hive --hiveconf local='hdfs://namenode:8020/user/Cartola/2017/2017_scouts_raw' --hiveconf tabela=scouts_raw --hiveconf ano=2017 --hiveconf versao=2017 -f ins-table-scouts-2017.hql
 hive --hiveconf local='hdfs://namenode:8020/user/Cartola/2017/2017_times' --hiveconf tabela=equipe --hiveconf ano=2017 --hiveconf versao=2 -f ins-table.hql
 hive --hiveconf local='hdfs://namenode:8020/user/Cartola/2017/2017_tabela' --hiveconf tabela=tabela --hiveconf ano=2017 --hiveconf versao= -f ins-table.hql
 #hive --hiveconf local='hdfs://namenode:8020/user/Cartola/2017/2017_dados_agregados'
