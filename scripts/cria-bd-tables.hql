@@ -153,7 +153,6 @@ CREATE EXTERNAL TABLE IF NOT EXISTS stage.jogador2
 , apelido   STRING COMMENT 'nome/apelido do jogador'
 , Clube     STRING COMMENT 'Nome do Clube'
 , posicao   STRING COMMENT 'posição do jogador'
-, foto      STRING COMMENT 'URL da Foto'
 )
 ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.OpenCSVSerde'
 WITH SERDEPROPERTIES (
