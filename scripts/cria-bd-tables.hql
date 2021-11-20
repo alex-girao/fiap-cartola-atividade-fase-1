@@ -145,6 +145,25 @@ STORED AS TEXTFILE
 LOCATION 'hdfs://namenode:8020/user/Cartola/2014/2014_jogadores'
 TBLPROPERTIES ('skip.header.line.count'='1');
 
+DROP TABLE IF EXISTS stage.jogador2;
+
+CREATE EXTERNAL TABLE IF NOT EXISTS stage.jogador2
+(
+  id        INT    COMMENT 'id do jogador'
+, apelido   STRING COMMENT 'nome/apelido do jogador'
+, Clube     STRING COMMENT 'Nome do Clube'
+, posicao   STRING COMMENT 'posição do jogador'
+, foto      STRING COMMENT 'URL da Foto'
+)
+ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.OpenCSVSerde'
+WITH SERDEPROPERTIES (
+  "separatorChar" = ",",
+  "quoteChar"="\"",
+  "escapeChar"="\\")
+STORED AS TEXTFILE
+LOCATION 'hdfs://namenode:8020/user/Cartola/2018/2018_jogadores'
+TBLPROPERTIES ('skip.header.line.count'='1');
+
 DROP TABLE IF EXISTS stage.lance;
 
 CREATE EXTERNAL TABLE IF NOT EXISTS stage.lance
