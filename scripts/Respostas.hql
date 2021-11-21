@@ -43,3 +43,21 @@ SELECT dim_jogador.apelido
  ORDER BY pontosmedia DESC
  LIMIT 10;
 
+--Qual o Time Ideal (Por ano Baseado nos Scouts dos Jogadores)
+SELECT *
+  FROM (SELECT ano
+             , nome
+             , pontosmedia
+             , RANK() OVER (PARTITION BY ano ORDER BY pontosmedia DESC) AS rank
+          FROM (SELECT fact_scouts_raw.ano
+                     , dim_equipe.nome
+                     , SUM(fact_scouts_raw.pontosmedia) AS pontosmedia
+                  FROM dw.fact_scouts_raw
+                 INNER JOIN dw.dim_equipe
+                    ON fact_scouts_raw.equipeid = dim_equipe.id
+                 INNER JOIN dw.dim_jogador
+                    ON fact_scouts_raw.atletaid = dim_jogador.id
+                 WHERE dim_equipe.nome != 'Nao Identificado'
+                 GROUP BY fact_scouts_raw.ano
+                        , dim_equipe.nome) qry) qry1
+ WHERE rank <= 5
