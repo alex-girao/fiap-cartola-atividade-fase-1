@@ -7,7 +7,7 @@ ALTER TABLE stage.${hiveconf:tabela}${hiveconf:versao}
 INSERT INTO TABLE cartola.${hiveconf:tabela} PARTITION (ano)
 SELECT Atleta       
      , Rodada       
-     , Clube        
+     , equipe.id AS Clube        
      , NULL AS Participou   
      , posicao_id AS Posicao      
      , Jogos        
@@ -39,5 +39,8 @@ SELECT Atleta
      , DD           
      , DP           
      , GS
-	 , ${hiveconf:ano} 
-  FROM stage.${hiveconf:tabela}${hiveconf:versao};
+     , ${hiveconf:ano}
+  FROM stage.${hiveconf:tabela}${hiveconf:versao} scouts_raw2017
+  LEFT JOIN cartola.equipe
+    ON scouts_raw2017.nomeclube = equipe.nome
+   AND equipe.ano = 2017;
