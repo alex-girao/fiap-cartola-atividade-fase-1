@@ -61,3 +61,5 @@ SELECT *
                  GROUP BY fact_scouts_raw.ano
                         , dim_equipe.nome) qry) qry1
  WHERE rank <= 5
+ ORDER BY ano
+        , rank
