@@ -1,8 +1,19 @@
 --Quantos registros há na tabela por ano?
-SELECT ano
-     , COUNT(*) AS qt_registros
-  FROM dw.fact_partida
- GROUP BY ano;
+WITH partida AS (SELECT ano
+                      , COUNT(*) AS QtRegPartida
+                   FROM dw.fact_partida
+                  GROUP BY ano)
+   , Scouts  AS (SELECT ano
+                      , COUNT(*) AS QtRegScouts
+                   FROM dw.fact_scouts_raw
+                  GROUP BY ano)
+SELECT partida.ano
+     , partida.QtRegPartida
+     , Scouts.QtRegScouts
+  FROM partida
+ INNER JOIN Scouts
+    ON partida.ano = Scouts.ano
+ ORDER BY partida.ano;
 
 --Quantas equipes únicas mandantes existem?
 SELECT COUNT(DISTINCT home_team) qtd_equipes_unicas
